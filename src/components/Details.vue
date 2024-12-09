@@ -2,8 +2,10 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from 'axios';
+import { useStore } from '../store';
 
 const response = ref(null);
+const store = useStore();
 const route = useRoute();
 
 onMounted(async () => {
@@ -38,6 +40,11 @@ onMounted(async () => {
         </a>
       </div>
     </div>
+    <button
+      @click="store.cart.set(route.params.id, { title: response.original_title, url: response.poster_path })"
+      class="movie-site">
+      Buy
+    </button>
   </div>
 </template>
 
