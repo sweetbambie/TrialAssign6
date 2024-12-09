@@ -8,12 +8,12 @@ const router = useRouter();
 const selectedGenre = ref(28);
 const response = ref(null);
 
-const genres = [ 
+const genres = [
   { id: 12, genreName: 'Adventure' },
-  {id: 16, genreName: 'Animation' },
-  {id: 35, genreName: 'Comedy' },
-  {id: 10402, genreName: 'Music' },
-  {id: 878, genreName: 'Sci-Fi' },
+  { id: 16, genreName: 'Animation' },
+  { id: 35, genreName: 'Comedy' },
+  { id: 10402, genreName: 'Music' },
+  { id: 878, genreName: 'Sci-Fi' },
 ];
 
 async function getMovieByGenre() {
@@ -23,6 +23,11 @@ async function getMovieByGenre() {
 function getMovieDetails(id) {
   router.push(`/movies/${id}`)
 }
+
+// function handleBuyClick(movieId) {
+//   selectedMovieId.value = key;  
+//   console.log("Selected Movie ID for purchase:", key);
+// }
 
 onMounted(async () => {
   response.value = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&include_adult=false&with_genres=${selectedGenre.value}`);
@@ -38,6 +43,7 @@ onMounted(async () => {
       <div v-for="movie in response.data.results" :key="movie.id" class="movie-card" @click="getMovieDetails(movie.id)">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
         <p class="movie-title">{{ movie.title }}</p>
+        <button type="button" class="buy" @click.stop="handleBuyClick(movie.id)">Buy</button>
       </div>
     </div>
   </div>
@@ -85,5 +91,16 @@ select {
 
 .movie-card:hover .movie-title {
   color: hotpink;
+}
+
+.buy {
+  display: block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: hotpink;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 </style>
