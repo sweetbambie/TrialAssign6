@@ -4,6 +4,7 @@ import RegisterView from '../views/RegisterView.vue';
 import LoginView from '../views/LoginView.vue';
 import MoviesView from '../views/MoviesView.vue';
 import DetailsView from '../views/DetailsView.vue';
+import CartView from '../views/CartView.vue';
 
 const routes = [
     { path: '/', component: HomeView },
@@ -11,6 +12,7 @@ const routes = [
     { path: '/login', component: LoginView },
     { path: '/movies', component: MoviesView },
     { path: '/movies/:id', component: DetailsView },
+    { path: '/cart', component: CartView }
 ]
 
 const router = createRouter({
