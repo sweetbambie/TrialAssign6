@@ -9,10 +9,13 @@ const password = ref('');
 const router = useRouter();
 
 const handleLogin = () => {
-  if (email === store.email && password === store.password) {
+  if (email.value === store.email && password.value === store.password) {
+    alert('Login successful!');
     router.push("/movies"); 
   } else {
-    alert("Invalid Email or Password");
+    alert(
+      `Invalid Email or Password.\nEntered Email: ${email.value}\nStored Email: ${store.email}`
+    );
   }
 };
 </script>
