@@ -44,3 +44,9 @@ export const useRegistrationStore = defineStore('registration', () => {
     setRegistrationData,
   };
 });
+
+export const useStore = defineStore('store', () => {
+  const cart = ref(new Map());
+
+  return { cart }
+})
