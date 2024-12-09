@@ -1,4 +1,26 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+import { useRegistrationStore } from '../store';
+
+const store = useRegistrationStore();
+
+const validateForm = (event) => {
+  if (store.password.value !== store.rePassword.value) {
+    event.preventDefault(); 
+    alert('The passwords do not match. Please check and try again.');
+  } else {
+    store.setRegistrationData({
+      firstName: store.firstName,
+      lastName: store.lastName,
+      email: store.email.value,
+      password: store.password,
+      rePassword: store.rePassword,
+    });
+
+    alert('Form submitted successfully!');
+  }
+};
+</script>
 
 <template>
   <div class="hero">
@@ -9,11 +31,13 @@
       </div>
       <div class="form-container">
         <h2>Create an Account</h2>
-        <form>
-          <input type="text" placeholder="Name" class="input-field" required>
-          <input type="email" placeholder="Email" class="input-field" required>
-          <input type="password" placeholder="Password" class="input-field" required>
-          <input type="password" placeholder="Re-Enter Password" class="input-field" required>
+        <form @submit="validateForm">
+          <input type="text" placeholder="First Name" class="input-field" v-model="store.firstName" required />
+          <input type="text" placeholder="Last Name" class="input-field" v-model="store.lastName" required />
+          <input type="email" placeholder="Email" class="input-field" v-model="store.email" required />
+          <input type="password" placeholder="Password" class="input-field" v-model="store.password" required />
+          <input type="password" placeholder="Re-Enter Password" class="input-field" v-model="store.rePassword"
+            required />
           <button type="submit" class="register">Register</button>
         </form>
       </div>
@@ -24,8 +48,8 @@
 <style>
 .form-container {
   display: flex;
-  flex-direction: column; 
-  align-items: center; 
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   margin-top: 50px;
 }
@@ -39,13 +63,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 350px; 
-  gap: 15px; 
+  max-width: 350px;
+  gap: 15px;
 }
 
 .input-field {
   padding: 15px;
-  width: 100%; 
+  width: 100%;
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-bottom: 15px;

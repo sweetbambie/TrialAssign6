@@ -1,15 +1,18 @@
 <script setup>
-import { RouterLink, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { useRegistrationStore } from '../store';
 
-const router = useRouter();
+const store = useRegistrationStore();
+const email = ref('');
 const password = ref('');
+const router = useRouter();
 
 const handleLogin = () => {
-  if (password.value === "iloveyou") {
-    router.push("/movies");
+  if (email === store.email && password === store.password) {
+    router.push("/movies"); 
   } else {
-    alert("Invalid Password");
+    alert("Invalid Email or Password");
   }
 };
 </script>
@@ -24,8 +27,8 @@ const handleLogin = () => {
       <div class="form-container">
         <h2>Login to Your Account</h2>
         <form @submit.prevent="handleLogin">
-          <input type="email" placeholder="Email" class="input-field" required />
-          <input v-model:="password" type="password" placeholder="Password" class="input-field" required />
+          <input v-model="email" type="email" placeholder="Email" class="input-field" required />
+          <input v-model="password" type="password" placeholder="Password" class="input-field" required />
           <button type="submit" class="button login">Login</button>
         </form>
       </div>
@@ -45,7 +48,6 @@ const handleLogin = () => {
 }
 
 .overlay {
-  /*background-color: rgba(78, 25, 20,0.7);*/
   width: 100%;
   height: 100%;
   display: flex;
