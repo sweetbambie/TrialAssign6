@@ -12,10 +12,15 @@ const validateForm = (event) => {
     store.setRegistrationData({
       firstName: store.firstName,
       lastName: store.lastName,
-      email: store.email.value,
+      email: store.email,
       password: store.password,
-      rePassword: store.rePassword,
     });
+
+    console.log('Store data after registration:', {
+      email: store.email,
+      password: store.password,
+    });
+
 
     alert('Form submitted successfully!');
   }
@@ -36,8 +41,7 @@ const validateForm = (event) => {
           <input type="text" placeholder="Last Name" class="input-field" v-model="store.lastName" required />
           <input type="email" placeholder="Email" class="input-field" v-model="store.email" required />
           <input type="password" placeholder="Password" class="input-field" v-model="store.password" required />
-          <input type="password" placeholder="Re-Enter Password" class="input-field" v-model="store.rePassword"
-            required />
+          <input type="password" placeholder="Re-Enter Password" class="input-field" v-model="store.rePassword" required />
           <button type="submit" class="register">Register</button>
         </form>
       </div>
